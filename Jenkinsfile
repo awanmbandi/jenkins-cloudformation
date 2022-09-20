@@ -6,7 +6,7 @@ pipeline {
             sh "aws cloudformation validate-template --template-body file://ventura-network-infra.yaml --region 'us-east-1'"
             }
         }
-        stage('Create Stack') {
+        stage('Template Cost Estimate') {
             steps {
             sh "aws cloudformation estimate-template-cost --template-body file://ventura-network-infra.yaml --region 'us-east-1'"
             }
