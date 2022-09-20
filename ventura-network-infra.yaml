@@ -596,5 +596,14 @@ Resources:
   #       - Key: Name
   #         Value: VenturaProdDB
 
+  JenkinsTestVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: "10.0.0.0/20"
+      EnableDnsSupport: true
+      Tags:
+        - Key: Name
+          Value: JenkinsTestVPC
+
 
 Outputs: {}
