@@ -28,7 +28,7 @@ pipeline {
         // }
         stage('Delete Stack') {
             steps {
-            sh "aws cloudformation delete-stack --stack-name s3bucket --template-body file://ventura-network-infra.yaml --region 'us-east-1'"
+            sh "aws cloudformation delete-stack --stack-name s3bucket --region 'us-east-1'"
             }
         }
         //stage('Slack Notification'){
