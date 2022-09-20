@@ -21,9 +21,14 @@ pipeline {
         //     sh "aws cloudformation create-stack --stack-name s3bucket --template-body file://ventura-network-infra.yaml --region 'us-east-1'"
         //     }
         // }
-        stage('Update Stack') {
+        // stage('Update Stack') {
+        //     steps {
+        //     sh "aws cloudformation update-stack --stack-name s3bucket --template-body file://ventura-network-infra.yaml --region 'us-east-1'"
+        //     }
+        // }
+        stage('Delete Stack') {
             steps {
-            sh "aws cloudformation update-stack --stack-name s3bucket --template-body file://ventura-network-infra.yaml --region 'us-east-1'"
+            sh "aws cloudformation delete-stack --stack-name s3bucket --template-body file://ventura-network-infra.yaml --region 'us-east-1'"
             }
         }
         //stage('Slack Notification'){
