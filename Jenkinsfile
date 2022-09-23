@@ -6,31 +6,34 @@ pipeline {
         //     sh "aws cloudformation validate-template --template-body file://ventura-network-infra.yaml --region 'us-east-1'"
         //     }
         // }
-        // stage('Template Cost Estimate') {
-        //     steps {
-        //     sh "aws cloudformation estimate-template-cost --template-body file://ventura-network-infra.yaml --region 'us-east-1'"
-        //     }
-        // }
-        // stage('Approval for Prod') {
-        //     steps {
-        //     input('Do you want to proceed considering cost?')
-        //     }
-        // }
-        // stage('Create Prod Stack') {
-        //     steps {
-        //     sh "aws cloudformation create-stack --stack-name s3bucket --template-body file://ventura-network-infra.yaml --region 'us-east-1'"
-        //     }
-        // }
+        stage('Template Cost Estimate') {
+            steps {
+            sh "aws cloudformation estimate-template-cost --template-body file://ventura-network-infra.yaml --region 'us-east-1'"
+            }
+        }
+        stage('Approval for Prod') {
+            steps {
+            input('Do you want to proceed considering cost?')
+            }
+        }
+        stage('Create Prod Stack') {
+            steps {
+            sh "aws cloudformation create-stack --stack-name s3bucket --template-body file://ventura-network-infra.yaml --region 'us-east-1'"
+            }
+        }
         // stage('Update Prod Stack') {
         //     steps {
         //     sh "aws cloudformation update-stack --stack-name s3bucket --template-body file://ventura-network-infra.yaml --region 'us-east-1'"
         //     }
         // }
-        // stage('Delete Prod Stack') {
-        //     steps {
-        //     sh "aws cloudformation delete-stack --stack-name s3bucket --region 'us-east-1'"
-        //     }
-        // }
+        post {
+           always {
+             echo 'Slack Notifications.'
+             slackSend channel: '#jenkins-cloudformation-cicd',
+                color: COLOR_MAP[currentBuild.currentResult],
+                message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
+            }
+        }
         // stage('Slack Notification'){
         //    slackSend baseUrl: 'https://hooks.slack.com/services/',
         //    channel: '#jenkins-pipeline-demo',
