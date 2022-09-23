@@ -31,3 +31,8 @@
 
 
 - Jenkins and Slack Integration Runbook: https://jjtech-eagles-devops.slack.com/services/B04425RQH5F?added=1
+
+
+
+
+aws cloudformation estimate-template-cost --template-body file://ventura-network-infra.yaml --parameters file://ventura-infra-parametafile.json

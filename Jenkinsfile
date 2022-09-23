@@ -12,7 +12,7 @@ pipeline {
         // }
         stage('Template Cost Estimate') {
             steps {
-            sh "aws cloudformation estimate-template-cost --template-body file://ventura-network-infra.yaml --region 'us-east-1'"
+            sh "aws cloudformation estimate-template-cost --template-body file://ventura-prod-env-infra.yaml --parameters file://ventura-infra-parametafile.json --region 'us-east-1'"
             }
         }
         stage('Approval for Prod') {
@@ -22,7 +22,7 @@ pipeline {
         }
         stage('Create Prod Stack') {
             steps {
-            sh "aws cloudformation create-stack --stack-name s3bucket --template-body file://ventura-network-infra.yaml --region 'us-east-1'"
+            sh "aws cloudformation create-stack --stack-name ventura-prod-infra --template-body file://ventura-prod-env-infra.yaml --parameters file://ventura-infra-parametafile.json --region 'us-east-1'"
             }
         }
         // stage('Update Prod Stack') {
