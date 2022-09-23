@@ -30,14 +30,6 @@ pipeline {
         //     sh "aws cloudformation update-stack --stack-name s3bucket --template-body file://ventura-network-infra.yaml --region 'us-east-1'"
         //     }
         // }
-        post {
-           always {
-             echo 'Slack Notifications.'
-             slackSend channel: '#jenkins-cloudformation-cicd', //update and provide your channel name
-                color: COLOR_MAP[currentBuild.currentResult],
-                message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
-            }
-        }
         // stage('Slack Notification'){
         //    slackSend baseUrl: 'https://hooks.slack.com/services/',
         //    channel: '#jenkins-pipeline-demo',
@@ -47,4 +39,12 @@ pipeline {
         //    tokenCredentialId: 'slack-demo'
         // }
     }
+    post {
+           always {
+             echo 'Slack Notifications.'
+             slackSend channel: '#jenkins-cloudformation-cicd', //update and provide your channel name
+                color: COLOR_MAP[currentBuild.currentResult],
+                message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
+            }
+        }
 }
