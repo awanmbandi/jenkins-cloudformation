@@ -14,7 +14,7 @@ pipeline {
             steps {
             sh "aws cloudformation estimate-template-cost --template-body file://ventura-prod-env-infra.yaml --parameters file://ventura-infra-parametafile.json --region 'us-east-1'"
             }
-        }
+        }cdsw
         stage('Approval for Prod') {
             steps {
             input('Do you want to proceed considering cost?')
